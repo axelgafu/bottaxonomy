@@ -19,6 +19,22 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[twoside]{article}
+%% LaTeX Preamble - Common packages
+
+\usepackage[utf8]{inputenc} % Any characters can be typed directly from the keyboard, eg éçñ
+\usepackage{textcomp} % provide lots of new symbols
+\usepackage{graphicx}  % Add graphics capabilities
+%\usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
+\usepackage{flafter}  % Don't place floats before their definition
+%\usepackage{wrapfig,lipsum,booktabs}
+%\usepackage{tabularx}
+\usepackage{array}
+
+
+
+
+
+
 
 \usepackage{lipsum} % Package to generate dummy text throughout this template
 
@@ -51,11 +67,13 @@
 \pagestyle{fancy} % All pages have headers and footers
 \fancyhead{} % Blank out the default header
 \fancyfoot{} % Blank out the default footer
-\fancyhead[C]{May 2015 $\bullet$ UAG} % Custom header text
+\fancyhead[C]{Jun 2015 $\bullet$ UAG} % Custom header text
 %\fancyfoot[RO,LE]{\thepage} % Custom footer text
 
-\usepackage{relsize}
+%\usepackage{relsize}
 \usepackage{hyperref}
+\usepackage{booktabs}
+
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
@@ -65,7 +83,7 @@
 
 \author{
 \large
-\textsc{Graded Student in Computer Science Axel Alejandro Garcia Fuentes}\thanks{-}\\[2mm] % Your name
+\textsc{Graded Student in Computer Science Axel Alejandro Garcia Fuentes}\\[2mm] % Your name, \thanks{-}
 \normalsize Universidad Autonoma de Guadalajara \\ % Your institution
 \normalsize \href{mailto:axel.garcia@edu.uag.mx}{axel.garcia@edu.uag.mx} % Your email address
 \vspace{-5mm}
@@ -87,9 +105,10 @@
 \begin{abstract}
 
 %\noindent \lipsum[1] % Dummy abstract text
-Bots are used to automate several things. The applicability of bots range from perform editing activities to mimic the human behavior.
-This document has a bot taxonomy proposal based on their characteristics. This article was motivated by the idea that a bot taxonomy 
-may help to study their capabilities and properties.
+Bots are used basically to automate tasks. They are tools used to perform activities that range from document edition to mimic the human behavior.
+This article is a proposal of how bots can be categorized. It is motivated by the desire to help studying bots properties and understand how bots may 
+be used in the field. This work identifies a few main categories where bots may be classified. During the creation of this work it was found four of them and 
+the majority of the studied bots seem to fall into those categories. 
 \end{abstract}
 
 %----------------------------------------------------------------------------------------
@@ -99,33 +118,35 @@ may help to study their capabilities and properties.
 \begin{multicols}{2} % Two-column layout throughout the main article text
 
 \section{Introduction}
-\lettrine[nindent=0em,lines=3]{C}omputers help humans to speed up computations and to automate things. One of the ways in which
-computers help us to automate tasks is by creating a program that does it. Software bots are computer programs that perform a given 
-task they were programmed for. 
+\lettrine[nindent=0em,lines=2]{C}omputers help humans to speed up computations and to automate repetitive tasks. One way to automate 
+a task is to divide it in several subtasks and write a program that perform those subtasks. It is true that not all the tasks can be automated
+using those simple steps. Nevertheless, they are enough to introduce the concept of using a computer to perform automation. Software bots 
+are computer programs that automate tasks. If the need is to modify documents then the bot will edit certain parts of a document, if the
+necessity is to propagate a message over a network of contacts then the bot will deliver a message and will repeat delivering the same
+message as many times as it is programmed for. \cite{ferrara:2015} mentions the existence of social bots which is considered as a computer
+algorithm that automatically produces content and interacts with humans on social media; e.g. Twitter or Facebok.
 
-There are bots that are able to write articles. In this category falls a bot called Lsjbot. That boot created about 454,000 articles and that
-is bout the half of the articles in Swedish Wikipedia \cite{guld:2013}. Another example is ClueBot NG, which is a bot that cleans up
-vandalism from articles. \cite{bbc07:2012} mentions a situation where that bot identified a message that belonged nowhere in an article
-of the national supreme court.
+There are bots that are able to write articles. For example, in this category falls a bot called Lsjbot. That boot created about 454,000 articles 
+which is about the half of the articles in Swedish Wikipedia \cite{guld:2013}. Another example is ClueBot NG, which is a bot that cleans up
+vandalism from an article of the national supreme court.\cite{bbc07:2012}. In this context the term \emph{vandalism} means meaningless 
+messages added to a document; for example text used to discredit an article. \cite{ferrara:2015} mentions that early bots mainly modified 
+content automatically, examples of that are \cite{wikiWriter:2014} and \cite{wikiList:2014}.
 
-Some of them are so sophisticated that can even answer queries by using natural language algorithms\cite{emerging:2014}. It seems
-there are two different types of bots: Social bots and editing bots. When multiple social bots are controlled by a person that is called
-Sybil\cite{ferrara:2015}.
+Other types of bots can be used to influence a social network behavior. Some bots in this category are so sophisticated that can even 
+answer queries by using natural language algorithms\cite{emerging:2014}. According with \cite{ferrara:2015} there exist bots that are aimed 
+to mimic humans. While there are benign bots they can be created to persuade, smear or deceive also.
+
+
+
+When multiple social bots are controlled by a person that is called Sybil\cite{ferrara:2015}. \cite{kuhn:2015} mentions botnets which seems to be similar to Sybil. The difference seems to be that botnets are intended to be used with malware and Sybils are social bots.
 %\cite{kuhn:2015} Science Bots: a Model for the Future of Scientific Computation?: http://arxiv.org/pdf/1503.04374.pdf
 
-\cite{kuhn:2015} mentions botnets which seems to be similar to Sybil. The difference seems to be that botnets are intended to be
-used with malware and Sybils are social bots.
 
-\cite{ferrara:2015} mentions that early bots mainly modified content automatically, examples of that are \cite{wikiWriter:2014} and \cite{wikiList:2014}. It is also mentioned the existence of social bots which is considered as a computer algorithm that automatically produces content and interacts with humans on social media; e.g. Twitter or Facebok.
-Two main categories of bots: Social Bots and Work Bots. A social bot may work along with other social bots.
 
-According with \cite{ferrara:2015} exist bots that are aimed to mimic humans. While there are benign bots they can be created to persuade, smear or deceive also. 
-Real users seem to spend more time looking at other user's contents and messaging than Sybil.
 
 Wikipedia page about creating wikipedia bots to aid article creation\cite{wtalk:2014} and this other to request the creation of a bot: \url{http://en.wikipedia.org/wiki/Wikipedia:Bot_requests}
 
----
-How good boots are used: Wikipedia Bot Writes 10,000 Articles a Day: \url{http://news.discovery.com/tech/robotics/wikipedia-bot-writes-10000-articles-a-day-140715.htm}
+
 
 %------------------------------------------------
 \section{Problem}
@@ -139,27 +160,94 @@ Some of them are benign and, in principle, innocuous
 or even helpful: this category includes bots that automatically aggregate content
 from various sources, like simple news feeds\cite{ferrara:2015}
     
-Editing bots:
-    According with \cite{kuhn:2015} bots can be independent pieces of software which are capable of perform small tasks like create nanoposts. 
-    Swedish Wikipedia surpasses 1 million articles with aid of article creation bot: http://blog.wikimedia.org/2013/06/17/swedish-wikipedia-1-million-articles/
-
-Social bots:
-    Distractors[Abokhodair et al. 2015].Smoke screening strategies. Political campaigns orchestrated by social bots[Ratkiewicz et al. 2011a].
-    Bots-Human (maybe cyborg?) bot
-    Bots that hack accounts vs
-    A second category of social bots includes malicious entities designed specifically with the purpose to harm\cite{ferrara:2015}; inflate support for 
-    a political candidate. In fact, these kinds of abuse have already been observed: during the 2010 U.S. midterm elections [Ratkiewicz et al. 2011a];. 
-    Campaigns of this type are sometimes referred to as astroturf or Twitter bombs\cite{ferrara:2015}.
+\subsection{Editing Bots}
+    According with \cite{kuhn:2015} bots can be independent pieces of software which are capable of perform small tasks like create 
+    nanoposts. That definition seems to be compatible with \cite{ayers:2008} who defines a bot as software for making certain types 
+    of procedural edits automatically.
     
-Botnets:
+    \begin{table}[H]
+        \caption{Characteristics of Editing Bots}
+        \begin{tabular}{p{2cm} p{4cm}}
+        \toprule
+        Modus operandi &  They do not interact in a social networking. Typically process text documents. \\ 
+        Output                &  A newer version of processed documents. \\
+        \bottomrule
+        \end{tabular}
+        \label{tab:editingb}
+    \end{table}
+    
+        
+    Examples of this type of bots are:
+    Swedish Wikipedia surpasses 1 million articles with aid of article creation bot: \cite{guld:2013}, Wikipedia Bot Writes 10,000 Articles
+    a Day: \cite{wikiWriter:2014} and Meet the 'bots' that edit Wikipedia \cite{bbc07:2012}.
+    
+
+\subsection{Social Media Bots}
+    This type of bots emerged from online social networks. They are used between several possible goals to spread information or influence
+    targets. According with \cite{wagner2012social} a there are three types of Twitter accounts: user, bots and cyborgs\(users assisted by bots\). 
+    From those types, this work derives two subcategories of social bots: \emph{bot} and \emph{cyborg}.
+    
+    Some examples of the usage of social bots is: Distractors[Abokhodair et al. 2015]. Smoke screening strategies. Political campaigns 
+    orchestrated by social bots[Ratkiewicz et al. 2011a]. This malicious usage with the purpose to harm is documented by \cite{ferrara:2015} also; 
+    inflate support for a political candidate. In fact, these kinds of abuse have already been observed: during the 2010 U.S. midterm elections 
+    [Ratkiewicz et al. 2011a]. Campaigns of this type are sometimes referred to as astroturf or Twitter bombs\cite{ferrara:2015}.
+    
+    \begin{table}[H]
+        \caption{Characteristics of Social Media Bots}
+        \begin{tabular}{p{2cm} p{4cm}}
+        \toprule
+        Modus operandi &  Mimic humans and/or human behavior in OSN. \\ 
+        Output                &  Spread information or influence targets. \\
+        \bottomrule
+        \end{tabular}
+        \label{tab:socialb}
+    \end{table}
+    
+    
+\subsection{Botnets}
     \cite{abu:2006} refers to botnets as a network of infected hosts which are called \emph{bots}. In this context those bots are controlled by a human
     operator which is called \emph{botmaster}. That definition is similar to the definition of \emph{Sybil} \cite{ferrara:2015}. However, a botnet
-    is meant to be utilized by malware according to\cite{abu:2006}.
+    is meant to be utilized by malware. Botnets are different than malware like worms because of its manual orchestration\cite{abu:2006}:
+    
+    \begin{quote}
+        "Botnets borrow infection strategies from several classes of malware, including self-replicating worms, e-mail viruses, etc."
+    \end{quote}
+    
+    \begin{table}[H]
+        \caption{Characteristics of Botnets}
+        \begin{tabular}{p{2cm} p{4cm}}
+        \toprule
+        Modus operandi &  Scans used to recruit new victims. Infections can also be spread by convincing victims to run some form            of malicious code on their machines\\ 
+        Output                &  Bot binary installation ready to execute next time the victim is rebooted. \\
+        \bottomrule
+        \end{tabular}
+        \label{tab:botnetb}
+    \end{table}
+    
+\subsection{User Assistant Bots}
+    In this category falls the bots that assist humans. Bots like Siri from Apple or Cortana from Microsoft. These bots will analyze data on demand of the
+    end user. In this case the end user is doing a search and the generated information not necessarily will be stored in all the cases.
+    
+    Another bot in this category is the Chatterbot or chatbot. An historical example of the nature of this type of bot is the Turing test.
+    
+    \begin{table}[H]
+        \caption{Characteristics of User Assistant Bots}
+        \begin{tabular}{p{2cm} p{4cm}}
+        \toprule
+        Modus operandi &  Receives a request directly from the human user and process it. I supports on natural language processing systems.  \\ 
+        Output                &  Answer to the human request. \\
+        \bottomrule
+        \end{tabular}
+        \label{tab:botnetb}
+    \end{table}
+    
+
+
 
 
 
 %Marc Gaffan, Top 10 Bots You Should Know About, Aug/21/2012, last access May/05/2015, https://www.incapsula.com/blog/know-your-top-10-bots.html
-Search Bot, Crawler, Feed Fetcher.
+%Search Bot, Crawler, Feed Fetcher.
 
 %Discuss taxonomies:
 % - Wikipedia:Types of bots: http://en.wikipedia.org/wiki/Wikipedia:Types_of_bots
@@ -170,6 +258,7 @@ Search Bot, Crawler, Feed Fetcher.
 
 %------------------------------------------------
 \section{Detection}
+According with \cite{ferrara:2015} real users seem to spend more time looking at other user's contents and messaging than Sybil.
 
 innocent-by-association strategy), ?Sybil until proven otherwise? approach(opposite to the first)\cite{ferrara:2015}
 
@@ -189,7 +278,7 @@ innocent-by-association strategy), ?Sybil until proven otherwise? approach(oppos
 
 %https://www.google.com.mx/?gfe_rd=cr&ei=AZcLVYu7JojUpAOEmYKADA&gws_rd=ssl#q=bot+detection
 
-The rise of social bots: Fighting deception and misinformation on social media: INDIANA UNIVERSITY: http://itnews.iu.edu/events/the-rise-of-social-bots-fighting-deception-and-misinformation-on-social-media.php
+%The rise of social bots: Fighting deception and misinformation on social media: INDIANA UNIVERSITY: http://itnews.iu.edu/events/the-rise-of-social-bots-fighting-deception-and-misinformation-on-social-media.php
 
 %BotoPedia, http://www.botopedia.org
 
