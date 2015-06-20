@@ -36,9 +36,8 @@
 \newcommand{\keywords}[1]{\par\addvspace\baselineskip
 \noindent\keywordname\enspace\ignorespaces#1}
 
-\usepackage{Sweave}
 \begin{document}
-\input{BotDetection-concordance}
+\SweaveOpts{concordance=TRUE}
 
 \mainmatter  % start of an individual contribution
 
@@ -249,50 +248,56 @@ After the Major elections of June 2015 in Guadalajara, Jalisco was over data
 about some of the contestants presumably legitim Twitter accounts was gathered.
 Somple public media reported irregularities on that data. That media claimed some
 of the followers were actually bots:
-\begin{Schunk}
-\begin{Sinput}
-> library(xlsx)
-> library(xtable)
-> data <- read.xlsx( "AccountsData_20150617.xlsx", 1 )
-> data <- data[,c("Cuenta", "Seguidores.en.Twitter", "Seguidores.Reales")]
-> data <- data[complete.cases(data), ]
-> head(data)
-\end{Sinput}
-\begin{Soutput}
-            Cuenta Seguidores.en.Twitter Seguidores.Reales
-2     @Paco_Olvera                160700              0.27
-3 @ManceraMiguelMX               1420000              0.28
-4 @miguelalonsogob                 35400              0.36
-5 @RobertoSandoval                 47400              0.37
-6     @nunezarturo                 54500              0.38
-7   @eruviel_avila                333000              0.45
-\end{Soutput}
-\end{Schunk}
+<<Candidates List>>==
+
+library(xlsx)
+library(xtable)
+data <- read.xlsx( "AccountsData_20150617.xlsx", 1 )
+data <- data[,c("Cuenta", "Seguidores.en.Twitter", "Seguidores.Reales")]
+data <- data[complete.cases(data), ]
+
+head(data)
+@
 
 That data shows the real followers as a percentage of the total number of followers.
 In order to know the number of followers those percentages mean the percentage of
 real followers should be multiplied by the total number of followers of that
 politician account. That calculation is shown in the following code snippet:
+<<Candidates Percentage, echo=FALSE>>==
+summaryData <- data.frame( 
+    "No. Main Accounts"=nrow(data), 
+    "Total Followers"=sum(data["Seguidores.en.Twitter"]),
+    "Reported Human Followers"=
+        sum( data["Seguidores.en.Twitter"]*data["Seguidores.Reales"] ))
+@
+<<Candidates Percentage, echo=FALSE>>==
+botPercentage <- 
+    round( (1 -summaryData["Reported.Human.Followers"]/summaryData["Total.Followers"])*100, 1 )
+@
 
 The following table shows that summary data:
-% latex table generated in R 3.1.2 by xtable 1.7-4 package
-% Sat Jun 20 13:57:45 2015
-\begin{table}[]
-\centering
-\caption{Statistics of Jan/15 Guadalajara Elections} 
-\label{tab:one}
-\begin{tabular}{cccc}
-  \hline
- & No..Main.Accounts & Total.Followers & Reported.Human.Followers \\ 
-  \hline
-1 &  51 & 10,263,900 & 4,827,383 \\ 
-   \hline
-\end{tabular}
-\end{table}
+<<Followers table, echo=FALSE,results=tex>>==
+#Add a little bit of formatting to the numbers for the table.
+summaryData["Total.Followers"] <- 
+    format( as.numeric(summaryData["Total.Followers"]), 
+            big.mark=",", secimal.mark=",", small.mark=",")
+summaryData["Reported.Human.Followers"] <- 
+    format( as.numeric(summaryData["Reported.Human.Followers"]), 
+           big.mark=",", secimal.mark=",", small.mark=",")
+print( 
+    xtable( summaryData, 
+            caption="Statistics of Jan/15 Guadalajara Elections", 
+            label="tab:one",
+            align="cccc",
+            include.rownames=FALSE),
+    table.placement="", caption.placement="top"
+    )
+@
+
 
 Interpreting the data provided by this source we can tell the bot followers
-were 53\%. That is more than the half of followers. For that
-reason we consider that a situation that justify using it for this bot taxonomy
+were \Sexpr{botPercentage}\%. That is more than the half of followers. For that
+reason we consider that as a situation that justifies using it for this bot taxonomy
 proposal.
 
 
